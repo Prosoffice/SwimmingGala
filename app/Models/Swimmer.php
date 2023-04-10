@@ -10,6 +10,7 @@ use \Illuminate\Database\Eloquent\Relations\HasMany;
 class Swimmer extends Model
 {
     use HasFactory;
+    protected $fillable=['user_id','squad_id'];
 
     public function club(): BelongsTo
     {
@@ -29,5 +30,9 @@ class Swimmer extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function parent(){
+        return $this->belongsTo(User::class,'parent_id','id');
     }
 }

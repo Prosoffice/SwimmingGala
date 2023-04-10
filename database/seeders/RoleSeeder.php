@@ -16,13 +16,13 @@ class RoleSeeder extends Seeder
             ['name'=>'SuperAdmin']
         );
         DB::table("roles")->insert(
-            ['name'=>'ClubAdmin']
+            ['name'=>'Guardian']
         );
         DB::table("roles")->insert(
             ['name'=>'Swimmer']
         );
         DB::table("roles")->insert(
-            ['name'=>'Regular']
+            ['name'=>'Coach']
         );
 
     }

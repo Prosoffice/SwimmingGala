@@ -23,6 +23,11 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'phone_number',
+        'date_of_birth',
+        'address',
+        'sex',
+        'role_id'
     ];
 
     /**
@@ -47,5 +52,12 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function squad(){
+        return $this->hasOne(Squad::class,'coach_id','id');
+    }
+    public function swimmer(){
+        return $this->hasOne(Swimmer::class,'parent_id','id');
     }
 }

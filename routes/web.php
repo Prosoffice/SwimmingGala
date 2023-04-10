@@ -23,6 +23,25 @@ Route::post('/register-action','App\Http\Controllers\Authentication\RegisterCont
 Route::get('/dashboard','App\Http\Controllers\HomeController@dashboard');
 Route::get('/account','App\Http\Controllers\PersonalInfoController@account');
 
+Route::middleware(['auth'])->group(function (){
+    Route::get('/update-information','App\Http\Controllers\UserController@loadProfile');
+    Route::post('update-information-action','App\Http\Controllers\UserController@updateProfileAction');
+    Route::get('admin/squads','App\Http\Controllers\SquadController@getSquadList');
+    Route::get('squad-swimmers','App\Http\Controllers\SquadController@getSwimmerList');
+    Route::get('squad-update','App\Http\Controllers\SquadController@squadUpdate');
+    Route::post('squad-add-action','App\Http\Controllers\SquadController@squadUpdateAction');
+
+    Route::get('admin/parents','App\Http\Controllers\UserController@getParentList');
+    Route::get('admin/create-parent','App\Http\Controllers\UserController@createParent');
+    Route::post('admin/create-parent-action','App\Http\Controllers\UserController@createParentAction');
+
+    Route::get('admin/coaches','App\Http\Controllers\UserController@getCoachesList');
+    Route::get('admin/create-coach','App\Http\Controllers\UserController@createCoach');
+    Route::post('admin/create-coach-action','App\Http\Controllers\UserController@createCoachAction');
+
+
+});
+
 Route::middleware(['roleGate:SuperAdmin'])->group(function (){
     Route::get('/teams','App\Http\Controllers\SquadController@teams');
 });

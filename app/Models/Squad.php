@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Squad extends Model
 {
     use HasFactory;
+    protected $fillable = ['name','coach_id'];
+    
 
     public function swimmers(): HasMany
     {
@@ -18,5 +20,8 @@ class Squad extends Model
     public function clubTrainingData(): HasMany
     {
         return $this->HasMany(Event::class);
+    }
+    public function coach(){
+        return $this->belongsTo(User::class,'coach_id','id');
     }
 }

@@ -33,4 +33,9 @@ class UserService
         return $this->userRepository->createUser($validRegistrationData);
     }
 
+    public function findById($id){
+        return $this->userRepository->findById($id);
+    }
+    
+
 }

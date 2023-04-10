@@ -18,4 +18,5 @@ class UserRepository implements UserRepositoryInterface
     {
         // TODO: Implement updateUserDetails() method.
     }
+
 }

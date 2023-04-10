@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('squads', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('coach_id');
+            $table->foreignId('coach_id')->nullable();
             $table->timestamps();
         });
     }
