@@ -5,41 +5,41 @@
             <div class="card-header">Account</div>
             <div class="card-body">
                 <div class="card-title">
-                    <h3 class="text-center title-2">Personal Info</h3>
+                    <h3 class="text-center title-2">{{ $isParent? 'Child Info' :'Swimmer Info' }}</h3>
                 </div>
                 <hr>
                 <form action="{{ URL::TO("update-information-action") }}" method="post" novalidate="novalidate">
                     @csrf
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">First Name</label>
-                        <input name="first_name" type="text" class="form-control" required value="{{ $user->first_name }}">
+                        <input name="first_name" type="text" class="form-control" required value="{{ $swimmer?->user?->first_name }}">
                     </div>
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Last Name</label>
-                        <input name="last_name" type="text" class="form-control" required value="{{ $user->last_name }}">
+                        <input name="last_name" type="text" class="form-control" required value="{{ $swimmer?->user?->last_name }}">
                     </div>
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Email</label>
-                        <input disabled name="email" type="text" class="form-control" value="{{ $user->email }}">
+                        <input disabled name="email" type="text" class="form-control" value="{{ $swimmer?->user?->email }}">
                     </div>
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Phone Number</label>
-                        <input name="phone_number" type="text" class="form-control" required value="{{ $user->phone_number }}">
+                        <input name="phone_number" type="text" class="form-control" required value="{{ $swimmer?->user?->phone_number }}">
                     </div>
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Date of birth</label>
-                        <input name="date_of_birth" type="date" class="form-control" disabled required value="{{ $user->date_of_birth }}">
+                        <input name="date_of_birth" type="date" class="form-control" disabled required value="{{ $swimmer?->user?->date_of_birth }}">
                     </div>
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Address</label>
-                        <input name="address" type="text" class="form-control" required value="{{ $user->address }}">
+                        <input name="address" type="text" class="form-control" required value="{{ $swimmer?->user?->address }}">
                     </div>
 
                     <div class="form-group">
                         <label for="cc-payment" class="control-label mb-1">Select Sex</label>
-                        <select required class="form-control" value="{{ $user->sex }}" name="sex" {{ $user->sex ? 'disabled' : '' }}>
-                            <option value="Male" {{ $user->sex == 'Male' ? 'selected' : '' }}>Male</option>
-                            <option value="Female" {{ $user?->sex == 'Female' ? 'selected' : '' }}>Female</option>
+                        <select required class="form-control" value="{{ $swimmer?->user?->sex }}" name="sex" {{ $swimmer?->user?->sex ? 'disabled' : '' }}>
+                            <option value="Male" {{ $swimmer?->user?->sex == 'Male' ? 'selected' : '' }}>Male</option>
+                            <option value="Female" {{ $swimmer?->user?->sex == 'Female' ? 'selected' : '' }}>Female</option>
                         </select>
                     </div>
         
@@ -51,6 +51,8 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <input type="hidden" name="user_id" value="{{ $swimmer?->user?->id }}" />
             
                     <div>
                         <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">

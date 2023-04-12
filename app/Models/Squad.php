@@ -24,4 +24,8 @@ class Squad extends Model
     public function coach(){
         return $this->belongsTo(User::class,'coach_id','id');
     }
+
+    public function event(){
+        return $this->hasMany(Event::class);
+    }
 }

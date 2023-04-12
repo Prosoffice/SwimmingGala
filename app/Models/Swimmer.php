@@ -35,4 +35,8 @@ class Swimmer extends Model
     public function parent(){
         return $this->belongsTo(User::class,'parent_id','id');
     }
+
+    public function event(){
+        return $this->hasMany(Event::class);
+    }
 }

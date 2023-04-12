@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('club_id');
+            $table->foreignId('squad_id');
             $table->integer('distance');
             $table->foreignId('stroke_id');
             $table->foreignId('gala_id')->nullable();

@@ -18,12 +18,16 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function loadProfile(){
+    public function loadProfile(Request $request){
         $user = User::find(auth()->user()->id);
+        $isParent = $request->isParent;
         $squads = Squad::all();
         $swimmer = Swimmer::find(auth()->user()->id);
+        if($isParent){
+            $swimmer = Swimmer::where('parent_id',auth()->user()->id)->first();
+        }
         
-        return view('Account.profile',compact('user','squads','swimmer'));
+        return view('Account.profile',compact('user','squads','swimmer','isParent'));
     }
     
     public function updateProfileAction(Request $request){
@@ -33,7 +37,7 @@ class UserController extends Controller
             'address'=>'required',
             'phone_number'=>'required',
         ]);
-        $userId = auth()->user()->id;
+        $userId = $request->user_id;
         $user = User::findOrFail($userId);
         $user->update($valid);
         //
@@ -104,6 +108,7 @@ class UserController extends Controller
             ]);
 
             $valid['role_id']=2;
+            $valid['password'] = bcrypt($request->password);
 
             $newSquad = User::create($valid);
             $swimmerId = $request->swimmer_id;
@@ -167,6 +172,7 @@ class UserController extends Controller
             ]);
 
             $valid['role_id']=4;
+            $valid['password']=bcrypt($request->password);
 
             $newSquad = User::create($valid);
 
@@ -177,6 +183,20 @@ class UserController extends Controller
         }
 
 
+    }
+
+    public function info(Request $request){
+        $userId = auth()->user()->id;
+        $isSwimmer = $request->isSwimmer;
+        $user = User::find($userId);
+        if($isSwimmer){
+            $swimmer = Swimmer::where('user_id',auth()->user()->id)->first();
+            $user = User::find($swimmer->parent_id);
+        }
+
+        return view('Account.info')->with([
+            'user'=>$user
+        ]);
     }
 
 }

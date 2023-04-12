@@ -27,6 +27,21 @@ class SquadController
 
     public function getSwimmerList(Request $request){
         $squadId = $request->query('squad_id');
+        $isParent = $request->isParent;
+        $isCoach=$request->isCoach;
+        $isSwimmer = $request->isSwimmer;
+        if($isParent){
+            $swimmer = Swimmer::where('parent_id',auth()->user()->id)->first();
+            $squadId = $swimmer->squad_id;
+        }
+        if($isCoach){
+            $squad =Squad::where('coach_id',auth()->user()->id)->first();
+            $squadId = $squad->id;
+        }
+        if($isSwimmer){
+            $swimmer = Swimmer::where('user_id',auth()->user()->id)->first();
+            $squadId = $swimmer->squad_id; 
+        }
         $squad = Squad::find($squadId);
         $swimmers = Swimmer::where('squad_id',$squadId)->get();
 

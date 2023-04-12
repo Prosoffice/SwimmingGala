@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('admin/squads','App\Http\Controllers\SquadController@getSquadList');
     Route::get('squad-swimmers','App\Http\Controllers\SquadController@getSwimmerList');
     Route::get('squad-update','App\Http\Controllers\SquadController@squadUpdate');
+    Route::get('info','App\Http\Controllers\UserController@info');
     Route::post('squad-add-action','App\Http\Controllers\SquadController@squadUpdateAction');
 
     Route::get('admin/parents','App\Http\Controllers\UserController@getParentList');
@@ -38,6 +39,14 @@ Route::middleware(['auth'])->group(function (){
     Route::get('admin/coaches','App\Http\Controllers\UserController@getCoachesList');
     Route::get('admin/create-coach','App\Http\Controllers\UserController@createCoach');
     Route::post('admin/create-coach-action','App\Http\Controllers\UserController@createCoachAction');
+
+    Route::get('galas','App\Http\Controllers\GalaController@getGalaList');
+    Route::get('add-gala','App\Http\Controllers\GalaController@addGala');
+    Route::post('add-gala-action','App\Http\Controllers\GalaController@addGalaAction');
+
+    Route::get('events','App\Http\Controllers\EventController@getEventList');
+    Route::get('add-event','App\Http\Controllers\EventController@addEvent');
+    Route::post('add-event-action','App\Http\Controllers\EventController@addEventAction');
 
 
 });
