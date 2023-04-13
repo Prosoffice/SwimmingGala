@@ -22,7 +22,7 @@ Route::post('/register-action','App\Http\Controllers\Authentication\RegisterCont
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/update-information','App\Http\Controllers\UserController@loadProfile');
-    Route::post('update-information-action','App\Http\Controllers\UserController@updateProfileAction');
+    Route::post('/update-information-action','App\Http\Controllers\UserController@updateProfileAction');
     Route::get('admin/squads','App\Http\Controllers\SquadController@getSquadList');
     Route::get('squad-swimmers','App\Http\Controllers\SquadController@getSwimmerList');
     Route::get('squad-update','App\Http\Controllers\SquadController@squadUpdate');

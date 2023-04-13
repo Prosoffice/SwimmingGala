@@ -25,7 +25,9 @@ class UserController extends Controller
         $swimmer = Swimmer::find(auth()->user()->id);
         if($isParent){
             $swimmer = Swimmer::where('parent_id',auth()->user()->id)->first();
+            return view('Account.profile_parent',compact('user','squads','swimmer','isParent'));
         }
+
         
         return view('Account.profile',compact('user','squads','swimmer','isParent'));
     }
@@ -37,10 +39,14 @@ class UserController extends Controller
             'address'=>'required',
             'phone_number'=>'required',
         ]);
+
         $userId = $request->user_id;
+        $valid['date_of_birth']=$request->date_of_birth??null;
         $user = User::findOrFail($userId);
         $user->update($valid);
         //
+
+
         $swimmer = Swimmer::where('user_id',$userId)->first();
         if(!$swimmer){
             $createSwimmer = Swimmer::create([
@@ -48,6 +54,8 @@ class UserController extends Controller
                 'squad_id'=>$request->squad_id,
             ]);
         }
+       
+       
         return redirect()->back()->with([
             'message'=>'Profile updated successfully',
             'alert-type'=>'success'
