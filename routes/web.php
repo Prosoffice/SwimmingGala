@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','App\Http\Controllers\Authentication\LoginController@login');
-Route::get('/login','App\Http\Controllers\Authentication\LoginController@login');
+Route::get('/login','App\Http\Controllers\Authentication\LoginController@login')->name('login');
 Route::post('/login-action','App\Http\Controllers\Authentication\LoginController@handleLogin');
 Route::get('/register','App\Http\Controllers\Authentication\RegisterController@register');
 Route::post('/register-action','App\Http\Controllers\Authentication\RegisterController@handleRegister');
@@ -38,6 +38,11 @@ Route::middleware(['auth'])->group(function (){
 
     Route::get('events','App\Http\Controllers\EventController@getEventList');
 
+    //
+
+    Route::get('add-event','App\Http\Controllers\EventController@addEvent');
+    Route::post('add-event-action','App\Http\Controllers\EventController@addEventAction');
+
    
 
 
@@ -55,9 +60,7 @@ Route::middleware(['roleGate:SuperAdmin'])->group(function (){
     Route::get('add-gala','App\Http\Controllers\GalaController@addGala');
 });
 
-Route::middleware(['roleGate:SuperAdmin','roleGate:Coach'])->group(function (){
-    Route::get('add-event','App\Http\Controllers\EventController@addEvent');
-    Route::post('add-event-action','App\Http\Controllers\EventController@addEventAction');
+Route::middleware(['roleGate:SuperAdmin','roleGate:Coach','roleGate:Swimmers'])->group(function (){
 
 });
 
